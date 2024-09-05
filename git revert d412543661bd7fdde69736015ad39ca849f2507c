@@ -1,0 +1,23 @@
+[33mcommit d412543661bd7fdde69736015ad39ca849f2507c[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Leonardo <leo-a-oliveira@outlook.com>
+Date:   Wed Sep 4 20:08:56 2024 -0300
+
+    definindo os DTOs e os repositórios para o microsserviço productapi
+
+[33mcommit 02499af044f20d940d03c24784ea4b108990e334[m
+Author: Leonardo <leo-a-oliveira@outlook.com>
+Date:   Tue Sep 3 18:54:14 2024 -0300
+
+    Overriding Conventions and Applying Migrations.
+
+[33mcommit ffc523203b76647777f3f1da59fd8a670e1871b4[m
+Author: Leonardo <leo-a-oliveira@outlook.com>
+Date:   Tue Sep 3 14:10:18 2024 -0300
+
+    Criando uma Loja Virtual Usando Microsserviços
+
+[33mcommit 92353cbf9ea20819551345ff59b5989c63481270[m
+Author: leonardo Araújo de Oliveira <leo-a-oliveira@outlook.com>
+Date:   Tue Sep 3 13:59:00 2024 -0300
+
+    Initial commit
