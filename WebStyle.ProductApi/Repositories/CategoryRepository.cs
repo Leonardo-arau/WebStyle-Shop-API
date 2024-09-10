@@ -6,20 +6,19 @@ namespace WebStyle.ProductApi.Repositories
 {
     public class CategoryRepository : ICategoryRepository
     {
-
         private readonly AppDbContext _context;
-
         public CategoryRepository(AppDbContext context)
         {
             _context = context;
         }
+
         public async Task<IEnumerable<Category>> GetAll()
         {
-          return await _context.Categories.ToListAsync();
+           return await _context.Categories.ToListAsync();
         }
         public async Task<IEnumerable<Category>> GetCategoriesProducts()
         {
-            return await _context.Categories.Include(c=> c.Products).ToListAsync();
+            return await _context.Categories.Include(c =>c.Products).ToListAsync();
         }
         public async Task<Category> GetById(int id)
         {
@@ -27,13 +26,13 @@ namespace WebStyle.ProductApi.Repositories
         }
         public async Task<Category> Create(Category category)
         {
-            _context.Categories.Add(category);
-            await _context.SaveChangesAsync();
-            return category;
+           _context.Categories.Add(category);
+           await _context.SaveChangesAsync();
+           return category;
         }
         public async Task<Category> Update(Category category)
         {
-            _context.Entry(category).State = EntityState.Modified;
+           _context.Entry(category).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return category;
         }
@@ -44,6 +43,5 @@ namespace WebStyle.ProductApi.Repositories
             await _context.SaveChangesAsync();
             return category;
         }
-        
     }
 }

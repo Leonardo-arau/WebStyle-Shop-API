@@ -4,7 +4,7 @@ using WebStyle.ProductApi.Models;
 
 namespace WebStyle.ProductApi.Repositories;
 
-public class ProductRepository : IProductRepository 
+public class ProductRepository : IProductRepository
 {
     private readonly AppDbContext _context;
 
@@ -12,14 +12,14 @@ public class ProductRepository : IProductRepository
     {
         _context = context;
     }
+
     public async Task<IEnumerable<Product>> GetAll()
     {
-        return await _context.Products.ToListAsync();
+       return await _context.Products.ToListAsync();
     }
-
     public async Task<Product> GetById(int id)
     {
-        return await _context.Products.Where(p => p.Id == id).FirstOrDefaultAsync();
+        return await _context.Products.Where(p =>  p.Id == id).FirstOrDefaultAsync();
     }
     public async Task<Product> Create(Product product)
     {
@@ -35,9 +35,11 @@ public class ProductRepository : IProductRepository
     }
     public async Task<Product> Delete(int id)
     {
-        var product = await GetById(id);
-        _context.Products.Remove(product);
+       var product = await GetById(id);
+       _context.Products.Remove(product);
         await _context.SaveChangesAsync();
         return product;
     }
+
+    
 }

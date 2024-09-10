@@ -2,7 +2,7 @@
 
 namespace WebStyle.ProductApi.Repositories;
 
-public interface ICategoryRepository
+public interface ICategoryRepository 
 {
     Task<IEnumerable<Category>> GetAll();
     Task<IEnumerable<Category>> GetCategoriesProducts();
