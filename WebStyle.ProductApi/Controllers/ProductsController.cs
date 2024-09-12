@@ -18,7 +18,7 @@ namespace WebStyle.ProductApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductDTO>>> get()
+        public async Task<ActionResult<IEnumerable<ProductDTO>>> Get()
         {
             var produtosDto = await _productService.GetProducts();
             if (produtosDto == null)
@@ -29,7 +29,7 @@ namespace WebStyle.ProductApi.Controllers
         }
 
         [HttpGet("{id}", Name = "GetProduct")]
-        public async Task<ActionResult<ProductDTO>> get(int id)
+        public async Task<ActionResult<ProductDTO>> Get(int id)
         {
             var produtoDto = await _productService.GetProductById(id);
             if (produtoDto == null)

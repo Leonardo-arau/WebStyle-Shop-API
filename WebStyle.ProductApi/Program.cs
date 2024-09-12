@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 using WebStyle.ProductApi.Context;
 using WebStyle.ProductApi.Repositories;
 using WebStyle.ProductApi.Services;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
