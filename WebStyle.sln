@@ -5,7 +5,13 @@ VisualStudioVersion = 17.11.35219.272
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStyle.ProductApi", "WebStyle.ProductApi\WebStyle.ProductApi.csproj", "{58F00CE0-4A24-4F50-A3B5-C7748A5368B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStyle.Web", "WebStyle.Web\WebStyle.Web.csproj", "{DF586845-2843-47CB-8CD5-A0F30A0D71A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStyle.Web", "WebStyle.Web\WebStyle.Web.csproj", "{DF586845-2843-47CB-8CD5-A0F30A0D71A7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{F375D32D-2069-4C07-9086-EA381DC57FB4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{84C427F1-255F-4996-BF8C-6355BD82E6D1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStyle.IdentityServer", "WebStyle.IdentityServe\WebStyle.IdentityServer.csproj", "{33C77206-1BCF-4BB8-811B-019A44B22560}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +27,18 @@ Global
 		{DF586845-2843-47CB-8CD5-A0F30A0D71A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF586845-2843-47CB-8CD5-A0F30A0D71A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF586845-2843-47CB-8CD5-A0F30A0D71A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33C77206-1BCF-4BB8-811B-019A44B22560}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33C77206-1BCF-4BB8-811B-019A44B22560}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33C77206-1BCF-4BB8-811B-019A44B22560}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33C77206-1BCF-4BB8-811B-019A44B22560}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{58F00CE0-4A24-4F50-A3B5-C7748A5368B9} = {84C427F1-255F-4996-BF8C-6355BD82E6D1}
+		{DF586845-2843-47CB-8CD5-A0F30A0D71A7} = {F375D32D-2069-4C07-9086-EA381DC57FB4}
+		{33C77206-1BCF-4BB8-811B-019A44B22560} = {84C427F1-255F-4996-BF8C-6355BD82E6D1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {25AC717C-15EF-421F-99D5-FAF285D64C0D}
