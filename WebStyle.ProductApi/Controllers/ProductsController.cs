@@ -10,7 +10,6 @@ namespace WebStyle.ProductApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class ProductsController : ControllerBase
     {
         private readonly IProductService _productService;
@@ -42,6 +41,7 @@ namespace WebStyle.ProductApi.Controllers
             return Ok(produtoDto);
         }
         [HttpPost]
+        [Authorize(Roles = Role.Admin)]
         public async Task<ActionResult> Post([FromBody] ProductDTO produtoDto)
         {
             if (produtoDto == null)
@@ -54,6 +54,7 @@ namespace WebStyle.ProductApi.Controllers
         }
 
         [HttpPut()]
+        [Authorize(Roles = Role.Admin)]
         public async Task<ActionResult> Put([FromBody] ProductDTO produtoDto)
         {
             if (produtoDto == null)
