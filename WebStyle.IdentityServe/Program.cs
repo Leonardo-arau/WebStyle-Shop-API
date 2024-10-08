@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using MySqlConnector;
 using WebStyle.IdentityServer.Configuration;
 using WebStyle.IdentityServer.Data;
+using WebStyle.IdentityServer.SeedDatabase;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,7 +31,10 @@ var builderIdentityServer = builder.Services.AddIdentityServer(options =>
                                         .AddInMemoryApiScopes(IdentityConfiguration.ApiScopes)
                                         .AddInMemoryClients(IdentityConfiguration.Clients)
                                         .AddAspNetIdentity<ApplicationUser>();
-            builderIdentityServer.AddDeveloperSigningCredential();
+
+builderIdentityServer.AddDeveloperSigningCredential();
+
+builder.Services.AddScoped<IDatabaseSeedInitializer, DatabaseIdentityServerInitializer>();
 
 var app = builder.Build();
 
@@ -51,8 +55,22 @@ app.UseAuthorization();
 
 app.UseIdentityServer();
 
+SeedDatabaseIdentityServer(app);
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+void SeedDatabaseIdentityServer(IApplicationBuilder app)
+{
+    using (var serviceScope = app.ApplicationServices.CreateScope()) 
+    {
+        var initRolesUsers = serviceScope.ServiceProvider
+                                .GetService<IDatabaseSeedInitializer>();
+
+        initRolesUsers.InitializeSeedRoles();
+        initRolesUsers.InitializeSeedUsers();
+    }
+}

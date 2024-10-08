@@ -8,7 +8,7 @@
     }
   },
   "profiles": {
-    "WebStyle.IdentityServe": {
+    "WebStyle.IdentityServer": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

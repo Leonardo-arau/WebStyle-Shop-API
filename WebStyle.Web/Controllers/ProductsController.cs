@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using WebStyle.Web.Models;
+using WebStyle.Web.Roles;
 using WebStyle.Web.Services.Contracts;
 
 namespace WebStyle.Web.Controllers
@@ -31,13 +33,14 @@ namespace WebStyle.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> CreateProduct()
         {
-            ViewBag.CategoryId = new SelectList(await 
+            ViewBag.CategoryId = new SelectList(await
                                 _categoryService.GetAllCategories(), "CategoryId", "Name");
 
             return View();
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateProduct(ProductViewModel productVM)
         {
             if (ModelState.IsValid)
@@ -56,7 +59,7 @@ namespace WebStyle.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> UpdateProduct(int id) 
+        public async Task<IActionResult> UpdateProduct(int id)
         {
             ViewBag.CategoryId = new SelectList(await
                                _categoryService.GetAllCategories(), "CategoryId", "Name");
@@ -67,13 +70,14 @@ namespace WebStyle.Web.Controllers
                 return View("Error");
 
             return View(result);
-        } 
+        }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateProduct(ProductViewModel productVM) 
+        [Authorize]
+        public async Task<IActionResult> UpdateProduct(ProductViewModel productVM)
         {
             if (ModelState.IsValid)
-            { 
+            {
                 var result = await _productService.UpdateProduct(productVM);
 
                 if (result is not null)
@@ -83,6 +87,7 @@ namespace WebStyle.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<ProductViewModel>> DeleteProduct(int id) 
         {
             var result = await _productService.FindProductbyId(id);
@@ -94,6 +99,7 @@ namespace WebStyle.Web.Controllers
         }
         
         [HttpPost(), ActionName("DeleteProduct")]
+        [Authorize(Roles = Role.Admin)]
         public async Task<IActionResult> DeleteConfirmed(int id) 
         {
             var result = await _productService.DeleteProductById(id);

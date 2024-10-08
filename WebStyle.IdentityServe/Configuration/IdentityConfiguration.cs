@@ -33,15 +33,15 @@ public class IdentityConfiguration
             ClientId = "client",
             ClientSecrets ={ new Secret("abracadabra#simsalabim".Sha256())},
             AllowedGrantTypes = GrantTypes.ClientCredentials, // precisa das credenciais do usuário
-            AllowedScopes = {"Read", "Write", "profile" }
+            AllowedScopes = {"read", "write", "profile" }
         },
         new Client
         {
             ClientId = "webstyle",
             ClientSecrets = { new Secret("abracadabra#simsalabim".Sha256())},
             AllowedGrantTypes = GrantTypes.Code, // via codigo
-            RedirectUris = {"https://localhost:7143/signin-oidc"},//login
-            PostLogoutRedirectUris = {"https://localhost:7143/signout-callback-oidc"},//logout
+            RedirectUris = {"https://localhost:7253/signin-oidc"},//login
+            PostLogoutRedirectUris = {"https://localhost:7253/signout-callback-oidc"},//logout
             AllowedScopes = new List<string>
             {
                 IdentityServerConstants.StandardScopes.OpenId,
