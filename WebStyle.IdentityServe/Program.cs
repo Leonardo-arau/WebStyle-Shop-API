@@ -1,9 +1,11 @@
+using Duende.IdentityServer.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MySqlConnector;
 using WebStyle.IdentityServer.Configuration;
 using WebStyle.IdentityServer.Data;
 using WebStyle.IdentityServer.SeedDatabase;
+using WebStyle.IdentityServer.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,6 +37,7 @@ var builderIdentityServer = builder.Services.AddIdentityServer(options =>
 builderIdentityServer.AddDeveloperSigningCredential();
 
 builder.Services.AddScoped<IDatabaseSeedInitializer, DatabaseIdentityServerInitializer>();
+builder.Services.AddScoped<IProfileService, ProfileAppService>();
 
 var app = builder.Build();
 
