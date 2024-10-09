@@ -2,11 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WebStyle.ProductApi.Context;
+using WebStyle.CartApi.Context;
 
 #nullable disable
 
-namespace WebStyle.ProductApi.Migrations
+namespace WebStyle.CartApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot
@@ -18,57 +18,60 @@ namespace WebStyle.ProductApi.Migrations
                 .HasAnnotation("ProductVersion", "6.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("WebStyle.ProductApi.Models.Category", b =>
-                {
-                    b.Property<int>("CategoryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
-                    b.HasKey("CategoryId");
-
-                    b.ToTable("Categories");
-
-                    b.HasData(
-                        new
-                        {
-                            CategoryId = 1,
-                            Name = "Acessórios"
-                        },
-                        new
-                        {
-                            CategoryId = 2,
-                            Name = "Masculinos"
-                        },
-                        new
-                        {
-                            CategoryId = 3,
-                            Name = "Femininas"
-                        },
-                        new
-                        {
-                            CategoryId = 4,
-                            Name = "Infantis"
-                        },
-                        new
-                        {
-                            CategoryId = 5,
-                            Name = "Íntimas"
-                        });
-                });
-
-            modelBuilder.Entity("WebStyle.ProductApi.Models.Product", b =>
+            modelBuilder.Entity("WebStyle.CartApi.Models.CartHeader", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("CategoryId")
+                    b.Property<string>("CouponCode")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CartHeaders");
+                });
+
+            modelBuilder.Entity("WebStyle.CartApi.Models.CartItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    b.Property<int>("CartHeaderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CartHeaderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("CartItems");
+                });
+
+            modelBuilder.Entity("WebStyle.CartApi.Models.Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -94,25 +97,26 @@ namespace WebStyle.ProductApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
-
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("WebStyle.ProductApi.Models.Product", b =>
+            modelBuilder.Entity("WebStyle.CartApi.Models.CartItem", b =>
                 {
-                    b.HasOne("WebStyle.ProductApi.Models.Category", "Category")
-                        .WithMany("Products")
-                        .HasForeignKey("CategoryId")
+                    b.HasOne("WebStyle.CartApi.Models.CartHeader", "CartHeader")
+                        .WithMany()
+                        .HasForeignKey("CartHeaderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Category");
-                });
+                    b.HasOne("WebStyle.CartApi.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-            modelBuilder.Entity("WebStyle.ProductApi.Models.Category", b =>
-                {
-                    b.Navigation("Products");
+                    b.Navigation("CartHeader");
+
+                    b.Navigation("Product");
                 });
 #pragma warning restore 612, 618
         }

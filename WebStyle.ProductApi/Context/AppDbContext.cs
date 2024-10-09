@@ -56,7 +56,22 @@ namespace WebStyle.ProductApi.Context
                 new Category
                 { 
                     CategoryId = 2,
-                    Name = "Masculino"
+                    Name = "Masculinos"
+                },
+                new Category
+                {
+                    CategoryId = 3,
+                    Name = "Femininas"
+                },
+                new Category
+                {
+                    CategoryId = 4,
+                     Name = "Infantis"
+                },
+                new Category
+                {
+                      CategoryId = 5,
+                      Name = "Íntimas"
                 }
             );
         }

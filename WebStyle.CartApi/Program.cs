@@ -1,24 +1,19 @@
-    using Microsoft.EntityFrameworkCore;
-using System.Text.Json.Serialization;
-using WebStyle.ProductApi.Context;
-using WebStyle.ProductApi.Repositories;
-using WebStyle.ProductApi.Services;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using WebStyle.CartApi.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers().AddJsonOptions(x =>
-                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
-
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebStyle.ProductApi",  Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebStyle.CartApi", Version = "v1" });
 
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
@@ -26,7 +21,7 @@ builder.Services.AddSwaggerGen(c =>
         Name = "Authorization",
         In = ParameterLocation.Header,
         Type = SecuritySchemeType.ApiKey,
-        Scheme ="Bearer"
+        Scheme = "Bearer"
     });
 
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -50,10 +45,8 @@ builder.Services.AddSwaggerGen(c =>
 
 var mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
 
-builder.Services.AddDbContext<AppDbContext>(options=>
+builder.Services.AddDbContext<AppDbContext>(options =>
                   options.UseMySql(mySqlConnection, ServerVersion.AutoDetect(mySqlConnection)));
-
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddCors(options =>
 {
@@ -62,11 +55,6 @@ builder.Services.AddCors(options =>
                           .AllowAnyMethod()
                           .AllowAnyHeader());
 });
-
-builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped<ICategoryService, CategoryService>();
-builder.Services.AddScoped<IProductService, ProductService>();
 
 builder.Services.AddAuthentication("Bearer")
     .AddJwtBearer("Bearer", options =>
@@ -89,7 +77,6 @@ builder.Services.AddAuthorization(options =>
     });
 });
 
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -106,6 +93,7 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapControllers();
 
