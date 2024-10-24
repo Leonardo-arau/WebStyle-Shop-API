@@ -14,5 +14,6 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    background-color: #F8F9FA; /* Fundo neutro */
+    margin-bottom: 60px;
 }

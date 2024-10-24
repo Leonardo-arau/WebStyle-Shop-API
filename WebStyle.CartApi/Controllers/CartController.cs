@@ -17,15 +17,13 @@ public class CartController : ControllerBase
     }
 
     [HttpGet("getcart/{id}")]
-    public async Task<ActionResult<CartDTO>> GetByUserId(string userId)
+    public async Task<ActionResult<CartDTO>> GetByUserId(string id)
     {
-        var cartDto = await _repository.GetCartByUserIdAsync(userId);
-
+        var cartDto = await _repository.GetCartByUserIdAsync(id);
         if (cartDto is null)
             return NotFound();
 
-        return Ok(cartDto);
-        
+        return Ok(cartDto); 
     }
 
     [HttpPost("addcart")]

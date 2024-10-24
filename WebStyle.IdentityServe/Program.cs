@@ -74,6 +74,7 @@ void SeedDatabaseIdentityServer(IApplicationBuilder app)
                                 .GetService<IDatabaseSeedInitializer>();
 
         initRolesUsers.InitializeSeedRoles();
+
         initRolesUsers.InitializeSeedUsers();
     }
 }

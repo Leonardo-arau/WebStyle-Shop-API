@@ -43,9 +43,9 @@ public class CartRepository : ICartRepository
 
             if (total == 1)
             {
-                var cartHeaderremove = await _context.CartHeaders.FirstOrDefaultAsync(
-                                                     c => c.Id == cartItem.CartHeaderId);
-                _context.CartHeaders.Remove(cartHeaderremove);
+                var cartHeaderRemove = await _context.CartHeaders.FirstOrDefaultAsync(c => c.Id == cartItem.CartHeaderId);
+
+                _context.CartHeaders.Remove(cartHeaderRemove);
             }
             await _context.SaveChangesAsync();
             return true;
@@ -53,9 +53,10 @@ public class CartRepository : ICartRepository
         catch (Exception)
         {
             return false;
-        }    
+        }
+        
     }
-    public  async Task<bool> CleanCartAsync(string userId)
+    public async Task<bool> CleanCartAsync(string userId)
     {
         var cartHeader = await _context.CartHeaders.FirstOrDefaultAsync(c=> c.UserId == userId);
 
@@ -88,8 +89,8 @@ public class CartRepository : ICartRepository
         }
         else
         {
-            //atualiza a quatidade e os itens
-            await UpdateQuantityAndItems(cartDto, cart, cartHeader  );
+            //atualiza a quantidade e os itens
+            await UpdateQuantityAndItems(cartDto, cart, cartHeader  );  
         }
         return _mapper.Map<CartDTO>(cart);
     }
@@ -142,7 +143,7 @@ public class CartRepository : ICartRepository
         var product = await _context.Products.FirstOrDefaultAsync(p => p.Id ==
                              cartDto.CartItems.FirstOrDefault().ProductId);
 
-        if (product is not null)
+        if (product is null)
         { 
             _context.Products.Add(cart.CartItems.FirstOrDefault().Product);
             await _context.SaveChangesAsync();
